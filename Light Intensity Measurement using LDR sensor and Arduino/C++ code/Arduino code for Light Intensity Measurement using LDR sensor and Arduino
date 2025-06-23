@@ -1,0 +1,14 @@
+int ldrValue = 0; // Variable to store light value
+void setup() {
+  Serial.begin(9600);// Start serial monitor
+  pinMode(8,OUTPUT);
+  pinMode(A0,INPUT);// LDR connected to analog pin A0
+}
+
+void loop() {
+  ldrValue = analogRead(A0); // Read LDR value
+  Serial.print("LDR Value: ");
+  Serial.println(ldrValue); // Print value to Serial Monitor
+  analogWrite(8,map(ldrValue,0,1023,0,255));
+  delay(500); // Wait for half a second
+}
