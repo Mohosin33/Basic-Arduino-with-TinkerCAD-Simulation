@@ -1,0 +1,54 @@
+// C++ Code for Arduino - Gas Sensor & Temperature Sensor
+// Piezo buzzer triggers on gas alert
+// LED lights up on high temperature
+
+// Define sensor input pins
+const int gasSensorPin = A0;     // MQ2 or MQ135
+const int tempSensorPin = A1;    // LM35
+
+// Define output control pins
+const int ledPin = 13;            // LED for high temperature
+const int buzzerPin = 8;         // Piezo buzzer for gas
+
+// Thresholds (can be tuned based on your setup)
+const int gasThreshold = 100;         // Example gas limit
+const float tempThreshold = 40.0;     // Temperature in Celsius
+
+void setup() {
+  Serial.begin(9600);            // Start serial communication
+  pinMode(ledPin, OUTPUT);       // Set LED pin as output
+  pinMode(buzzerPin, OUTPUT);    // Set buzzer pin as output
+}
+
+void loop() {
+  // Read gas sensor value (0 to 1023)
+  int gasValue = analogRead(gasSensorPin);
+
+  // Read temperature sensor (LM35)
+  int tempValue = analogRead(tempSensorPin);
+  float voltage = tempValue * (5.0 / 1023.0);   // Convert to volts
+  float temperature = voltage * 100.0;          // LM35 output
+
+  // Show values on Serial Monitor
+  Serial.print("Gas: ");
+  Serial.print(gasValue);
+  Serial.print(" | Temp: ");
+  Serial.print(temperature);
+  Serial.println(" °C");
+
+  // Buzzer logic (gas alert)
+  if (gasValue > gasThreshold) {
+    digitalWrite(buzzerPin, HIGH);
+  } else {
+    digitalWrite(buzzerPin, LOW);
+  }
+
+  // LED logic (temperature alert)
+  if (temperature > tempThreshold) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+
+  delay(1000); // Wait 1 second
+}
