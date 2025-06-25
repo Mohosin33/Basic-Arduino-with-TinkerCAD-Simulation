@@ -1,0 +1,25 @@
+const int tempPin = A0; // LM35 sensor output connected to A0
+
+void setup() {
+  Serial.begin(9600); // Start serial communication
+}
+
+void loop() {
+  int analogValue = analogRead(tempPin);            // 1. Read analog value
+  float voltage = (analogValue * 5.0)/ 1024.0;      // 2. Convert to voltage
+  float temperatureC = (voltage-0.5) * 100.0;              // 3. Convert to Celsius
+  float temperatureF = (temperatureC * 9.0 / 5.0) + 32.0; // 4. Convert to Fahrenheit
+
+  // Print all values
+  Serial.print("Analog Reading: ");
+  Serial.print(analogValue);
+  Serial.print(" | Voltage: ");
+  Serial.print(voltage);
+  Serial.print(" V | Celsius: ");
+  Serial.print(temperatureC);
+  Serial.print(" °C | Fahrenheit: ");
+  Serial.print(temperatureF);
+  Serial.println(" °F");
+
+  delay(1000); // Wait for 1 second before next reading
+}
