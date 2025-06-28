@@ -1,0 +1,44 @@
+int buttonState=0;
+const int redLED = 10;
+const int yellowLED = 9;
+const int greenLED = 8;
+const int buttonPin = 5;
+
+void setup() {
+  pinMode(redLED, OUTPUT);
+  pinMode(yellowLED, OUTPUT);
+  pinMode(greenLED, OUTPUT);
+  pinMode(buttonPin, INPUT_PULLUP); // Button connected to GND
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Wait for button press (LOW because of pull-up)
+   buttonState=digitalRead(buttonPin);
+    if (buttonState==1) {
+      
+      // Step 1: Red ON
+      digitalWrite(redLED, HIGH);
+      Serial.println("Stop");
+      delay(2000);
+
+      // Step 2: Red OFF, Yellow ON
+      digitalWrite(redLED, LOW);
+      digitalWrite(yellowLED, HIGH);
+      Serial.println("Get Ready");
+      delay(2000);
+
+      // Step 3: Yellow OFF, Green ON
+      digitalWrite(yellowLED, LOW);
+      digitalWrite(greenLED, HIGH);
+      Serial.println("Start");
+      delay(2000);
+
+      // Turn all lights OFF
+      digitalWrite(greenLED, LOW);
+
+      // Wait until button is released (to prevent repeat)
+      while (digitalRead(buttonPin) == LOW);
+    }
+}
