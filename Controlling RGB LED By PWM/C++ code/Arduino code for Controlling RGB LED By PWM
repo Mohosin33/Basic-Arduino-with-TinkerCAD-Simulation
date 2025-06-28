@@ -1,0 +1,50 @@
+const int redPin = 9;
+const int greenPin = 10;
+const int bluePin = 11;
+
+void setup() {
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+}
+
+void loop() {
+  // Red
+  setColor(50, 0, 0); // Full Red
+  delay(1000);
+
+  // Green
+  setColor(0, 50, 0); // Full Green
+  delay(1000);
+
+  // Blue
+  setColor(0, 0, 50); // Full Blue
+  delay(1000);
+
+  // Yellow
+  setColor(50, 50, 0); // Red + Green
+  delay(1000);
+
+  // Cyan
+  setColor(0, 50, 50); // Green + Blue
+  delay(1000);
+
+  // Magenta
+  setColor(50, 0, 50); // Red + Blue
+  delay(1000);
+
+  // White
+  setColor(50, 50, 50);
+  delay(1000);
+
+  // Off
+  setColor(0, 0, 0);
+  delay(1000);
+}
+
+void setColor(int redValue, int greenValue, int blueValue) {
+  // Invert values for common anode
+  analogWrite(redPin, 50 - redValue);
+  analogWrite(greenPin, 50 - greenValue);
+  analogWrite(bluePin, 50 - blueValue);
+}
