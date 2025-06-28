@@ -1,0 +1,19 @@
+// C++ code
+//
+#include <LiquidCrystal.h>
+
+// LCD RS, E, D4, D5, D6, D7 to ATtiny85 pins (adjust if needed)
+LiquidCrystal lcd(0, 1, 2, 3, 4, 5); // Use your actual pins
+
+void setup() {
+  lcd.begin(16, 2);             // Init 16x2 LCD
+  lcd.setCursor(0, 0);
+  lcd.print("Welcome!");
+
+  lcd.setCursor(0, 1);
+  lcd.print("I am Mohosin");
+}
+
+void loop() {
+  // Nothing in loop for now
+}
