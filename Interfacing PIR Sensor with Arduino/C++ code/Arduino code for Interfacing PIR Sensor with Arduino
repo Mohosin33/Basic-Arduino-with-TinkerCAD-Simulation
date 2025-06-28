@@ -1,0 +1,23 @@
+// C++ code
+//
+const int pirPin = 13;      // PIR sensor OUT pin connected to D13
+const int ledPin = 7;     // Onboard LED or external LED
+
+void setup() {
+  pinMode(pirPin, INPUT);   // Set PIR as input
+  pinMode(ledPin, OUTPUT);  // LED as output
+  Serial.begin(9600);       // Start Serial Monitor
+}
+
+void loop() {
+  int motion = digitalRead(pirPin);  // Read PIR output
+
+  if (motion == HIGH) {
+    digitalWrite(ledPin, HIGH);      // Turn on LED
+    Serial.println("Motion Detected!");
+  } else {
+    digitalWrite(ledPin, LOW);       // Turn off LED
+  }
+
+  delay(1000); // Small delay to stabilize reading
+}
