@@ -1,0 +1,23 @@
+// C++ code for reading potentiometer and adjusting LED brightness
+
+int potPin = A0;
+int ledPin = 9;
+int readValue;
+int writeValue;
+
+void setup() {
+  pinMode(potPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  readValue = analogRead(potPin);                       // 0 to 1023
+  writeValue = (255.0 / 1023.0) * readValue;            // Map to 0–255
+  analogWrite(ledPin, writeValue);                      // Write PWM to LED
+
+  Serial.print("You are writing a value of ");
+  Serial.println(writeValue);
+
+  delay(200);  // Optional: reduce serial flooding
+}
