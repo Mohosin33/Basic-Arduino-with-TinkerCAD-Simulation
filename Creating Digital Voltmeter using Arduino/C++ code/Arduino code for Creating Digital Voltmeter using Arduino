@@ -1,0 +1,41 @@
+#include <LiquidCrystal.h>
+
+// LCD pins: RS, E, D4, D5, D6, D7
+LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
+
+const int analogPin = A0;             // Analog input pin
+float referenceVoltage = 5.0;         // Arduino Vcc
+float voltageDividerRatio = 2.0;      // Use 2.0 for 10k:10k divider
+
+void setup() {
+  lcd.begin(16, 2);                   // Initialize 16x2 LCD
+  Serial.begin(9600);                 // Start serial communication
+  lcd.setCursor(0, 0);
+  lcd.print("Digital Voltmeter");
+  delay(1000);
+}
+
+void loop() {
+  int analogValue = analogRead(analogPin); // Read analog input
+
+  // Calculate actual voltage at analog pin
+  float measuredVoltage = (analogValue / 1023.0) * referenceVoltage;
+
+  // Calculate input voltage from divider
+  float inputVoltage = measuredVoltage * voltageDividerRatio;
+
+  // Display on LCD
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Voltage:");
+  lcd.setCursor(0, 1);
+  lcd.print(inputVoltage, 2);
+  lcd.print(" V");
+
+  // Also print in Serial Monitor
+  Serial.print("Input Voltage: ");
+  Serial.print(inputVoltage, 2);
+  Serial.println(" V");
+
+  delay(500); // Update every 0.5 sec
+}
